@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HP Board Exam Portal — Login</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hp-navy:    #0B1F4B;
+    --hp-blue:    #1648A0;
+    --hp-sky:     #2E7FD9;
+    --hp-gold:    #C8962A;
+    --hp-gold-lt: #F5E4B8;
+    --hp-surface: #F4F6FB;
+    --hp-white:   #FFFFFF;
+    --hp-muted:   #6B7A99;
+    --hp-border:  #D6DDEF;
+    --hp-danger:  #C0392B;
+    --hp-success: #1A7A4A;
+    --radius-sm:  6px;
+    --radius-md:  12px;
+    --radius-lg:  20px;
+    --shadow-card: 0 8px 40px rgba(11,31,75,0.12), 0 2px 8px rgba(11,31,75,0.06);
+    --shadow-btn:  0 4px 14px rgba(22,72,160,0.30);
+    --font-display: 'Playfair Display', serif;
+    --font-body:    'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--hp-surface);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--hp-navy);
+  }
+
+  /* ── TOP HEADER BAR ─────────────────────────────────────────── */
+  .top-bar {
+    background: var(--hp-navy);
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 0;
+    letter-spacing: 0.02em;
+  }
+  .top-bar a { color: var(--hp-gold-lt); text-decoration: none; }
+  .top-bar a:hover { color: #fff; }
+
+  /* ── MAIN HEADER ─────────────────────────────────────────────── */
+  .main-header {
+    background: var(--hp-white);
+    border-bottom: 3px solid var(--hp-gold);
+    box-shadow: 0 2px 12px rgba(11,31,75,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 0;
+  }
+  .emblem-wrap {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--hp-navy), var(--hp-blue));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 3px 12px rgba(11,31,75,0.25);
+  }
+  .org-info { flex: 1; min-width: 0; }
+  .org-name-hi {
+    font-family: var(--font-display);
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: var(--hp-blue);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .org-name-en {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 3vw, 22px);
+    color: var(--hp-navy);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .org-sub {
+    font-size: 11px;
+    color: var(--hp-muted);
+    margin-top: 3px;
+    letter-spacing: 0.03em;
+  }
+  .header-badge {
+    background: var(--hp-gold);
+    color: var(--hp-navy);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── NAV TABS ──────────────────────────────────────────────── */
+  .portal-nav {
+    background: var(--hp-navy);
+  }
+  .portal-nav .nav-link {
+    color: rgba(255,255,255,0.72);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 0;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .portal-nav .nav-link:hover,
+  .portal-nav .nav-link.active {
+    color: #fff;
+    border-bottom-color: var(--hp-gold);
+    background: rgba(255,255,255,0.06);
+  }
+  .portal-nav .nav-link i { margin-right: 5px; font-size: 14px; }
+
+  /* ── HERO SECTION ─────────────────────────────────────────── */
+  .hero-section {
+    background: linear-gradient(135deg, var(--hp-navy) 0%, var(--hp-blue) 55%, var(--hp-sky) 100%);
+    padding: 48px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 48px solid rgba(200,150,42,0.15);
+    pointer-events: none;
+  }
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 32px solid rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 4vw, 36px);
+    color: #fff;
+    line-height: 1.25;
+  }
+  .hero-title span { color: var(--hp-gold); }
+  .hero-sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    margin-top: 10px;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+  .hero-steps {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .step-pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(4px);
+  }
+  .step-pill .num {
+    background: var(--hp-gold);
+    color: var(--hp-navy);
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── LOGIN CARD ─────────────────────────────────────────────── */
+  .login-card-wrap {
+    margin-top: -52px;
+    position: relative;
+    z-index: 10;
+  }
+  .login-card {
+    background: var(--hp-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .card-header-strip {
+    background: linear-gradient(90deg, var(--hp-navy), var(--hp-blue));
+    padding: 20px 28px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card-header-strip i {
+    font-size: 22px;
+    color: var(--hp-gold);
+  }
+  .card-header-strip h2 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+    margin: 0;
+  }
+  .card-header-strip p {
+    color: rgba(255,255,255,0.65);
+    font-size: 12px;
+    margin: 2px 0 0;
+  }
+  .card-body-inner { padding: 28px; }
+
+  /* ── ROLE TABS ─────────────────────────────────────────────── */
+  .role-tabs {
+    display: flex;
+    gap: 0;
+    background: var(--hp-surface);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+    margin-bottom: 24px;
+  }
+  .role-tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--hp-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    background: transparent;
+    user-select: none;
+  }
+  .role-tab i { font-size: 15px; }
+  .role-tab.active {
+    background: var(--hp-white);
+    color: var(--hp-blue);
+    box-shadow: 0 1px 6px rgba(11,31,75,0.10);
+    font-weight: 600;
+  }
+
+  /* ── FORM ELEMENTS ─────────────────────────────────────────── */
+  .form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--hp-navy);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .form-label i { color: var(--hp-blue); font-size: 14px; }
+  .form-control, .form-select {
+    border: 1.5px solid var(--hp-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    padding: 10px 14px;
+    color: var(--hp-navy);
+    background: var(--hp-surface);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: var(--font-body);
+  }
+  .form-control:focus, .form-select:focus {
+    border-color: var(--hp-sky);
+    box-shadow: 0 0 0 3px rgba(46,127,217,0.15);
+    background: #fff;
+    outline: none;
+  }
+  .input-group .form-control { border-right: none; border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+  .input-group .btn-toggle-pw {
+    background: var(--hp-surface);
+    border: 1.5px solid var(--hp-border);
+    border-left: none;
+    color: var(--hp-muted);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0 14px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .input-group .btn-toggle-pw:hover { color: var(--hp-blue); }
+
+  /* ── CAPTCHA ─────────────────────────────────────────────────── */
+  .captcha-box {
+    background: linear-gradient(110deg, #e8edf8 0%, #dde5f5 100%);
+    border: 1.5px solid var(--hp-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .captcha-text {
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--hp-navy);
+    text-decoration: line-through;
+    text-decoration-color: rgba(22,72,160,0.25);
+    user-select: none;
+  }
+  .btn-refresh-captcha {
+    background: none;
+    border: 1.5px solid var(--hp-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: var(--hp-blue);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.2s;
+    font-family: var(--font-body);
+  }
+  .btn-refresh-captcha:hover { background: rgba(22,72,160,0.07); }
+
+  /* ── SUBMIT BUTTON ─────────────────────────────────────────── */
+  .btn-login {
+    background: linear-gradient(135deg, var(--hp-blue), var(--hp-sky));
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 13px;
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    letter-spacing: 0.03em;
+    box-shadow: var(--shadow-btn);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-login::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background 0.2s;
+  }
+  .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22,72,160,0.38); }
+  .btn-login:hover::before { background: rgba(255,255,255,0.08); }
+  .btn-login:active { transform: translateY(0); }
+
+  /* ── HELPER LINKS ─────────────────────────────────────────── */
+  .helper-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .helper-links a, .helper-links span {
+    font-size: 12.5px;
+    color: var(--hp-blue);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .helper-links a:hover { text-decoration: underline; }
+
+  /* ── DIVIDER ─────────────────────────────────────────────── */
+  .or-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .or-divider::before, .or-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--hp-border);
+  }
+  .or-divider span {
+    font-size: 12px;
+    color: var(--hp-muted);
+    white-space: nowrap;
+  }
+
+  /* ── NEW REGISTRATION BTN ─────────────────────────────────── */
+  .btn-register {
+    background: transparent;
+    border: 1.5px solid var(--hp-gold);
+    color: var(--hp-gold);
+    border-radius: var(--radius-sm);
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-family: var(--font-body);
+  }
+  .btn-register:hover {
+    background: var(--hp-gold);
+    color: var(--hp-navy);
+  }
+
+  /* ── NOTICE PANEL ──────────────────────────────────────────── */
+  .notice-card {
+    background: var(--hp-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .notice-header {
+    background: var(--hp-gold);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--hp-navy);
+  }
+  .notice-header i { font-size: 16px; }
+  .notice-body { padding: 16px 18px; }
+  .notice-item {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--hp-border);
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333;
+  }
+  .notice-item:last-child { border-bottom: none; }
+  .notice-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--hp-blue);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .notice-badge {
+    display: inline-block;
+    background: #FEE2E2;
+    color: #991B1B;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── IMPORTANT DATES ──────────────────────────────────────── */
+  .dates-card {
+    background: var(--hp-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .dates-header {
+    background: var(--hp-navy);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+  }
+  .dates-header i { color: var(--hp-gold); font-size: 16px; }
+  .dates-table { width: 100%; border-collapse: collapse; }
+  .dates-table td {
+    padding: 10px 18px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--hp-border);
+  }
+  .dates-table tr:last-child td { border-bottom: none; }
+  .dates-table .label-col { color: var(--hp-muted); width: 55%; }
+  .dates-table .date-col { color: var(--hp-navy); font-weight: 600; text-align: right; }
+  .dates-table .active-row { background: #EFF6FF; }
+  .dates-table .active-row .label-col { color: var(--hp-blue); font-weight: 500; }
+
+  /* ── STATS STRIP ──────────────────────────────────────────── */
+  .stats-strip {
+    background: var(--hp-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 16px 20px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .stat-item { text-align: center; }
+  .stat-val {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--hp-blue);
+    font-weight: 700;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--hp-muted);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .main-footer {
+    background: var(--hp-navy);
+    color: rgba(255,255,255,0.65);
+    font-size: 12.5px;
+    margin-top: auto;
+  }
+  .footer-top {
+    padding: 36px 0 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .footer-link {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 12.5px;
+    display: block;
+    margin-bottom: 6px;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--hp-gold); }
+  .footer-section-title {
+    color: var(--hp-gold);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .footer-bottom {
+    padding: 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .gov-badge {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ── MARQUEE ─────────────────────────────────────────────── */
+  .marquee-strip {
+    background: var(--hp-gold);
+    color: var(--hp-navy);
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 7px 0;
+    overflow: hidden;
+  }
+  .marquee-inner {
+    display: flex;
+    gap: 60px;
+    animation: marquee 28s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── ALERT ─────────────────────────────────────────────────── */
+  .portal-alert {
+    background: #FFFBEB;
+    border: 1px solid #FCD34D;
+    border-left: 4px solid var(--hp-gold);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: #78350F;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+  .portal-alert i { flex-shrink: 0; font-size: 14px; margin-top: 1px; color: var(--hp-gold); }
+
+  /* ── VALIDATION ─────────────────────────────────────────────── */
+  .form-control.is-invalid { border-color: var(--hp-danger) !important; }
+  .invalid-feedback { font-size: 12px; color: var(--hp-danger); margin-top: 4px; display: none; }
+  .form-control.is-invalid + .invalid-feedback,
+  .form-control.is-invalid ~ .invalid-feedback { display: block; }
+
+  /* ── LOADER ─────────────────────────────────────────────────── */
+  .spinner-ring {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── RESPONSIVE TWEAKS ─────────────────────────────────────── */
+  @media (max-width: 991px) {
+    .hero-section { padding: 36px 0 72px; }
+    .login-card-wrap { margin-top: -44px; }
+    .right-col-wrap { margin-top: 24px; }
+  }
+  @media (max-width: 767px) {
+    .header-badge { display: none; }
+    .org-name-en { font-size: 16px; }
+    .emblem-wrap { width: 52px; height: 52px; font-size: 22px; }
+    .hero-title { font-size: 20px; }
+    .card-body-inner { padding: 20px 16px; }
+    .card-header-strip { padding: 16px 18px 14px; }
+    .role-tab span { display: none; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .footer-top .row > div { margin-bottom: 20px; }
+  }
+  @media (max-width: 480px) {
+    .top-bar .d-sm-none { display: none !important; }
+    .step-pill span { display: none; }
+    .hero-steps { gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP UTILITY BAR -->
+<div class="top-bar">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div class="d-flex align-items-center gap-3">
+        <span><i class="bi bi-telephone-fill me-1"></i>Helpdesk: 0177-2621076</span>
+        <span class="d-none d-sm-inline"><i class="bi bi-envelope-fill me-1"></i>hpbose@hpbose.org</span>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <a href="#"><i class="bi bi-globe me-1"></i>हिन्दी</a>
+        <a href="#"><i class="bi bi-download me-1"></i>Downloads</a>
+        <a href="#"><i class="bi bi-question-circle me-1"></i>Help</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN HEADER -->
+<header class="main-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="emblem-wrap">🏔️</div>
+      <div class="org-info">
+        <div class="org-name-hi">हिमाचल प्रदेश स्कूल शिक्षा बोर्ड</div>
+        <div class="org-name-en">Himachal Pradesh Board of School Education</div>
+        <div class="org-sub">Government of Himachal Pradesh &nbsp;|&nbsp; Dharamshala, HP — 176213</div>
+      </div>
+      <div class="d-none d-md-block">
+        <span class="header-badge"><i class="bi bi-shield-check me-1"></i>Official Portal</span>
+      </div>
+    </div>
+  </div>
+  <!-- NAV TABS -->
+  <div class="portal-nav">
+    <div class="container">
+      <nav class="d-flex overflow-auto" style="gap:0;">
+        <a href="#" class="nav-link active"><i class="bi bi-house-door"></i>Home</a>
+        <a href="#" class="nav-link"><i class="bi bi-file-earmark-text"></i>Exam Form</a>
+        <a href="#" class="nav-link"><i class="bi bi-card-heading"></i>Admit Card</a>
+        <a href="#" class="nav-link"><i class="bi bi-bar-chart-line"></i>Results</a>
+        <a href="#" class="nav-link"><i class="bi bi-calendar3"></i>Schedule</a>
+        <a href="#" class="nav-link d-none d-md-block"><i class="bi bi-patch-question"></i>FAQs</a>
+        <a href="#" class="nav-link d-none d-lg-block"><i class="bi bi-telephone"></i>Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>📢 Online Exam Form submission for Class X &amp; XII (Annual 2025) is now open &nbsp;|&nbsp; Deadline: 31st May 2025 &nbsp;|&nbsp; Admit Cards will be available from 15th June 2025 &nbsp;|&nbsp; Results for compartment exams declared — check now &nbsp;|&nbsp; New: Digital marksheets with QR verification launched</span>
+    <span>📢 Online Exam Form submission for Class X &amp; XII (Annual 2025) is now open &nbsp;|&nbsp; Deadline: 31st May 2025 &nbsp;|&nbsp; Admit Cards will be available from 15th June 2025 &nbsp;|&nbsp; Results for compartment exams declared — check now &nbsp;|&nbsp; New: Digital marksheets with QR verification launched</span>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <h1 class="hero-title">Student & School <span>Examination Portal</span></h1>
+        <p class="hero-sub">Manage exam form filling, download admit cards, check results and receive digital certificates — all in one secure platform.</p>
+        <div class="hero-steps">
+          <div class="step-pill"><div class="num">1</div><span>Register / Login</span></div>
+          <div class="step-pill"><div class="num">2</div><span>Fill Exam Form</span></div>
+          <div class="step-pill"><div class="num">3</div><span>Download Admit Card</span></div>
+          <div class="step-pill"><div class="num">4</div><span>View Results</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main style="padding-bottom: 48px; background: var(--hp-surface);">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- LOGIN CARD -->
+      <div class="col-lg-5 login-card-wrap">
+        <div class="login-card">
+          <div class="card-header-strip">
+            <i class="bi bi-person-lock"></i>
+            <div>
+              <h2>Secure Login</h2>
+              <p>Access your examination portal account</p>
+            </div>
+          </div>
+          <div class="card-body-inner">
+
+            <!-- Role selector -->
+            <div class="role-tabs" role="tablist">
+              <button class="role-tab active" onclick="switchRole('student', this)">
+                <i class="bi bi-mortarboard"></i><span>Student</span>
+              </button>
+              <button class="role-tab" onclick="switchRole('school', this)">
+                <i class="bi bi-building"></i><span>School / Institution</span>
+              </button>
+              <button class="role-tab" onclick="switchRole('admin', this)">
+                <i class="bi bi-shield-lock"></i><span>Admin</span>
+              </button>
+            </div>
+
+            <!-- Alert -->
+            <div class="portal-alert">
+              <i class="bi bi-info-circle-fill"></i>
+              <div>For first-time users, <strong>register below</strong> using your Roll Number / School Code. Use only official credentials.</div>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" novalidate onsubmit="handleLogin(event)">
+              <!-- Student: Roll No | School: School Code -->
+              <div class="mb-3" id="usernameGroup">
+                <label class="form-label" for="username">
+                  <i class="bi bi-person-badge"></i>
+                  <span id="usernameLabel">Roll Number</span>
+                </label>
+                <input type="text" id="username" class="form-control" placeholder="Enter your Roll Number" autocomplete="off">
+                <div class="invalid-feedback">Please enter your roll number.</div>
+              </div>
+
+              <!-- Date of Birth (student only) -->
+              <div class="mb-3" id="dobGroup">
+                <label class="form-label" for="dob">
+                  <i class="bi bi-calendar-date"></i>Date of Birth
+                </label>
+                <input type="date" id="dob" class="form-control">
+                <div class="invalid-feedback">Please select your date of birth.</div>
+              </div>
+
+              <!-- Password (school/admin only, hidden for student) -->
+              <div class="mb-3 d-none" id="passwordGroup">
+                <label class="form-label" for="password">
+                  <i class="bi bi-lock"></i>Password
+                </label>
+                <div class="input-group">
+                  <input type="password" id="password" class="form-control" placeholder="Enter password" autocomplete="current-password">
+                  <button type="button" class="btn-toggle-pw" onclick="togglePw()" id="pwToggle">
+                    <i class="bi bi-eye" id="pwIcon"></i>
+                  </button>
+                </div>
+                <div class="invalid-feedback">Password is required.</div>
+              </div>
+
+              <!-- Exam Class (student only) -->
+              <div class="mb-3" id="classGroup">
+                <label class="form-label" for="examClass">
+                  <i class="bi bi-list-check"></i>Exam Class
+                </label>
+                <select id="examClass" class="form-select">
+                  <option value="">— Select Class —</option>
+                  <option>Class X (Matric)</option>
+                  <option>Class XII (Senior Secondary)</option>
+                  <option>Open School (X)</option>
+                  <option>Open School (XII)</option>
+                  <option>Compartment / Re-appear</option>
+                </select>
+              </div>
+
+              <!-- Captcha -->
+              <div class="mb-3">
+                <label class="form-label"><i class="bi bi-shield-shaded"></i>Security Verification</label>
+                <div class="captcha-box mb-2">
+                  <span class="captcha-text" id="captchaText">A7K3P</span>
+                  <button type="button" class="btn-refresh-captcha" onclick="refreshCaptcha()">
+                    <i class="bi bi-arrow-clockwise"></i>Refresh
+                  </button>
+                </div>
+                <input type="text" id="captchaInput" class="form-control" placeholder="Type the characters above" maxlength="5" autocomplete="off" style="text-transform:uppercase; letter-spacing:4px;">
+                <div class="invalid-feedback">Please enter the captcha correctly.</div>
+              </div>
+
+              <!-- Remember me + Forgot -->
+              <div class="helper-links mb-3">
+                <div class="form-check" style="margin:0;">
+                  <input class="form-check-input" type="checkbox" id="rememberMe">
+                  <label class="form-check-label" for="rememberMe" style="font-size:12.5px; color:var(--hp-muted);">Keep me signed in</label>
+                </div>
+                <a href="#" onclick="showForgot()">Forgot credentials?</a>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" class="btn-login" id="loginBtn">
+                <div class="spinner-ring" id="loginSpinner"></div>
+                <i class="bi bi-box-arrow-in-right" id="loginIcon"></i>
+                <span id="loginBtnText">Login to Portal</span>
+              </button>
+            </form>
+
+            <div class="or-divider"><span>New User? Register Below</span></div>
+
+            <button class="btn-register" onclick="window.location='#'">
+              <i class="bi bi-person-plus"></i>Create New Account / Register
+            </button>
+
+            <p style="font-size:11.5px; color:var(--hp-muted); text-align:center; margin-top:16px;">
+              <i class="bi bi-lock-fill me-1"></i>256-bit SSL Encrypted &nbsp;|&nbsp; NIC Hosted &nbsp;|&nbsp; Privacy Policy
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="col-lg-7 right-col-wrap" style="margin-top: 20px;">
+
+        <!-- NOTICE BOARD -->
+        <div class="notice-card">
+          <div class="notice-header">
+            <i class="bi bi-megaphone-fill"></i>Notice Board / Announcements
+          </div>
+          <div class="notice-body">
+            <div class="notice-item">
+              <div class="dot"></div>
+              <div>Online Exam Form for Annual Examination 2025 (Class X &amp; XII) is now open. Last date of submission without late fee is <strong>31st May 2025</strong>.<span class="notice-badge">NEW</span></div>
+            </div>
+            <div class="notice-item">
+              <div class="dot"></div>
+              <div>Students are advised to verify their personal details (Name, DOB, Subject combination) before final submission of the exam form. No changes will be accepted after submission.</div>
+            </div>
+            <div class="notice-item">
+              <div class="dot"></div>
+              <div>Admit Cards for Regular &amp; Private Candidates (Annual 2025) will be available for download from <strong>15th June 2025</strong> onwards.<span class="notice-badge">UPCOMING</span></div>
+            </div>
+            <div class="notice-item">
+              <div class="dot"></div>
+              <div>Result for Compartment/Re-appear Examination (Autumn 2024) has been declared. Students can check results on the Results section.</div>
+            </div>
+            <div class="notice-item">
+              <div class="dot"></div>
+              <div>Digital Marksheets with QR Code verification are now available for download. Schools must verify via School Login before distribution to students.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <!-- Important Dates -->
+          <div class="col-md-7">
+            <div class="dates-card">
+              <div class="dates-header">
+                <i class="bi bi-calendar-event-fill"></i>Important Dates — Annual 2025
+              </div>
+              <table class="dates-table">
+                <tr class="active-row">
+                  <td class="label-col">Exam Form Submission Opens</td>
+                  <td class="date-col">01 May 2025</td>
+                </tr>
+                <tr class="active-row">
+                  <td class="label-col">Last Date (Without Late Fee)</td>
+                  <td class="date-col">31 May 2025</td>
+                </tr>
+                <tr>
+                  <td class="label-col">Last Date (With Late Fee ₹200)</td>
+                  <td class="date-col">15 Jun 2025</td>
+                </tr>
+                <tr>
+                  <td class="label-col">Admit Card Availability</td>
+                  <td class="date-col">15 Jun 2025</td>
+                </tr>
+                <tr>
+                  <td class="label-col">Examination Commencement</td>
+                  <td class="date-col">01 Jul 2025</td>
+                </tr>
+                <tr>
+                  <td class="label-col">Result Declaration (Tentative)</td>
+                  <td class="date-col">Sep 2025</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="col-md-5 d-flex flex-column gap-3">
+            <div class="stats-strip">
+              <div class="stat-item">
+                <div class="stat-val">9.2L+</div>
+                <div class="stat-label">Students Registered</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-val">4,800+</div>
+                <div class="stat-label">Schools Enrolled</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-val">98.4%</div>
+                <div class="stat-label">Digital Admit Cards</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-val">72.8%</div>
+                <div class="stat-label">Pass Rate (2024)</div>
+              </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div style="background:var(--hp-white); border-radius:var(--radius-md); box-shadow:var(--shadow-card); padding:16px 18px;">
+              <div style="font-size:12px; font-weight:600; color:var(--hp-navy); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px;">
+                <i class="bi bi-lightning-charge-fill me-1" style="color:var(--hp-gold);"></i>Quick Access
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <a href="#" style="display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--hp-surface); border-radius:6px; font-size:13px; color:var(--hp-navy); text-decoration:none; border:1px solid var(--hp-border); transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--hp-sky)'" onmouseout="this.style.borderColor='var(--hp-border)'">
+                  <i class="bi bi-search" style="color:var(--hp-blue);"></i>Check Result (without login)
+                </a>
+                <a href="#" style="display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--hp-surface); border-radius:6px; font-size:13px; color:var(--hp-navy); text-decoration:none; border:1px solid var(--hp-border); transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--hp-sky)'" onmouseout="this.style.borderColor='var(--hp-border)'">
+                  <i class="bi bi-card-heading" style="color:var(--hp-blue);"></i>Download Admit Card
+                </a>
+                <a href="#" style="display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--hp-surface); border-radius:6px; font-size:13px; color:var(--hp-navy); text-decoration:none; border:1px solid var(--hp-border); transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--hp-sky)'" onmouseout="this.style.borderColor='var(--hp-border)'">
+                  <i class="bi bi-file-pdf" style="color:var(--hp-blue);"></i>Exam Date Sheet 2025
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="main-footer">
+  <div class="container footer-top">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-brand">🏔️ HP Board of School Education</div>
+        <p style="font-size:12.5px; line-height:1.7; max-width:280px;">Dharamshala, District Kangra, Himachal Pradesh — 176213. Established under the H.P. Board of School Education Act, 1968.</p>
+        <div class="d-flex gap-2 mt-3">
+          <span class="gov-badge">Gov. of HP</span>
+          <span class="gov-badge">NIC Hosted</span>
+          <span class="gov-badge">ISO Certified</span>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-6">
+        <div class="footer-section-title">Services</div>
+        <a href="#" class="footer-link">Exam Form Filling</a>
+        <a href="#" class="footer-link">Download Admit Card</a>
+        <a href="#" class="footer-link">Check Results</a>
+        <a href="#" class="footer-link">Digital Marksheet</a>
+        <a href="#" class="footer-link">Re-evaluation</a>
+      </div>
+      <div class="col-lg-2 col-md-6 col-6">
+        <div class="footer-section-title">Information</div>
+        <a href="#" class="footer-link">About HPBOSE</a>
+        <a href="#" class="footer-link">Exam Calendar</a>
+        <a href="#" class="footer-link">Regulations</a>
+        <a href="#" class="footer-link">Scholarship</a>
+        <a href="#" class="footer-link">RTI</a>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-section-title">Contact & Helpdesk</div>
+        <div style="font-size:12.5px; line-height:2;">
+          <div><i class="bi bi-telephone me-2" style="color:var(--hp-gold);"></i>0177-2621076 / 2621301</div>
+          <div><i class="bi bi-envelope me-2" style="color:var(--hp-gold);"></i>hpbose@hpbose.org</div>
+          <div><i class="bi bi-clock me-2" style="color:var(--hp-gold);"></i>Mon–Fri, 10:00 AM – 5:00 PM</div>
+          <div><i class="bi bi-globe me-2" style="color:var(--hp-gold);"></i>www.hpbose.org</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2025 Himachal Pradesh Board of School Education. All Rights Reserved.</span>
+    <div class="d-flex gap-3">
+      <a href="#" class="footer-link" style="display:inline;">Privacy Policy</a>
+      <a href="#" class="footer-link" style="display:inline;">Disclaimer</a>
+      <a href="#" class="footer-link" style="display:inline;">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FORGOT PASSWORD MODAL -->
+<div class="modal fade" id="forgotModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:var(--radius-md); border:none; box-shadow:var(--shadow-card);">
+      <div class="modal-header" style="background:var(--hp-navy); border-radius:var(--radius-md) var(--radius-md) 0 0; border:none; padding:18px 24px;">
+        <h5 class="modal-title" style="color:#fff; font-family:var(--font-display); font-size:18px;">
+          <i class="bi bi-key me-2" style="color:var(--hp-gold);"></i>Recover Credentials
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="padding:24px;">
+        <div class="mb-3">
+          <label class="form-label"><i class="bi bi-person-badge"></i>Roll Number / School Code</label>
+          <input type="text" class="form-control" placeholder="Enter your Roll No. or School Code">
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><i class="bi bi-envelope"></i>Registered Email / Mobile</label>
+          <input type="text" class="form-control" placeholder="Enter registered email or mobile">
+        </div>
+        <button class="btn-login" style="margin-top:4px;">
+          <i class="bi bi-send"></i> Send OTP / Reset Link
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Role switching ──────────────────────────────────────────────
+  function switchRole(role, btn) {
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const isStudent = role === 'student';
+    const isSchool  = role === 'school' || role === 'admin';
+    document.getElementById('dobGroup').classList.toggle('d-none', !isStudent);
+    document.getElementById('classGroup').classList.toggle('d-none', !isStudent);
+    document.getElementById('passwordGroup').classList.toggle('d-none', isStudent);
+    const lbl = document.getElementById('usernameLabel');
+    const inp = document.getElementById('username');
+    if (role === 'student') { lbl.textContent = 'Roll Number'; inp.placeholder = 'Enter your Roll Number'; }
+    else if (role === 'school') { lbl.textContent = 'School Code'; inp.placeholder = 'Enter your School Code'; }
+    else { lbl.textContent = 'Admin Username'; inp.placeholder = 'Enter admin username'; }
+  }
+
+  // ── Captcha ─────────────────────────────────────────────────────
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  function generateCaptcha() {
+    return Array.from({length: 5}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  }
+  let currentCaptcha = 'A7K3P';
+  function refreshCaptcha() {
+    currentCaptcha = generateCaptcha();
+    document.getElementById('captchaText').textContent = currentCaptcha;
+    document.getElementById('captchaInput').value = '';
+  }
+
+  // ── Password toggle ─────────────────────────────────────────────
+  function togglePw() {
+    const pw = document.getElementById('password');
+    const ico = document.getElementById('pwIcon');
+    if (pw.type === 'password') { pw.type = 'text'; ico.className = 'bi bi-eye-slash'; }
+    else { pw.type = 'password'; ico.className = 'bi bi-eye'; }
+  }
+
+  // ── Forgot modal ────────────────────────────────────────────────
+  function showForgot() {
+    new bootstrap.Modal(document.getElementById('forgotModal')).show();
+  }
+
+  // ── Form submission ─────────────────────────────────────────────
+  function handleLogin(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const captchaVal = document.getElementById('captchaInput').value.trim().toUpperCase();
+    let valid = true;
+
+    // Validate username
+    const uInp = document.getElementById('username');
+    if (!username) { uInp.classList.add('is-invalid'); valid = false; }
+    else uInp.classList.remove('is-invalid');
+
+    // Validate captcha
+    const cInp = document.getElementById('captchaInput');
+    if (captchaVal !== currentCaptcha) { cInp.classList.add('is-invalid'); valid = false; }
+    else cInp.classList.remove('is-invalid');
+
+    if (!valid) return;
+
+    // Show loading
+    const btn = document.getElementById('loginBtn');
+    const spinner = document.getElementById('loginSpinner');
+    const icon = document.getElementById('loginIcon');
+    const btnText = document.getElementById('loginBtnText');
+    btn.disabled = true;
+    spinner.style.display = 'block';
+    icon.style.display = 'none';
+    btnText.textContent = 'Authenticating…';
+
+    // Simulate auth (replace with real fetch/redirect)
+    setTimeout(() => {
+      btn.disabled = false;
+      spinner.style.display = 'none';
+      icon.style.display = '';
+      btnText.textContent = 'Login to Portal';
+      refreshCaptcha();
+      // Show success toast
+      showToast('Login successful! Redirecting to dashboard…', 'success');
+    }, 2000);
+  }
+
+  // ── Toast ───────────────────────────────────────────────────────
+  function showToast(msg, type) {
+    const t = document.createElement('div');
+    t.style.cssText = `
+      position:fixed; bottom:24px; right:24px; z-index:9999;
+      background:${type==='success'?'#1A7A4A':'#C0392B'}; color:#fff;
+      padding:12px 20px; border-radius:8px;
+      font-family:var(--font-body); font-size:14px;
+      box-shadow:0 6px 24px rgba(0,0,0,0.2);
+      display:flex; align-items:center; gap:8px;
+      transform:translateY(80px); opacity:0;
+      transition:transform 0.3s, opacity 0.3s;
+      max-width:340px;
+    `;
+    t.innerHTML = `<i class="bi bi-${type==='success'?'check-circle':'x-circle'}-fill"></i> ${msg}`;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => { t.style.transform = 'translateY(0)'; t.style.opacity = '1'; });
+    setTimeout(() => { t.style.transform = 'translateY(80px)'; t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 4000);
+  }
+
+  // Auto-uppercase captcha input
+  document.getElementById('captchaInput').addEventListener('input', function() {
+    this.value = this.value.toUpperCase();
+  });
+</script>
+</body>
+</html>
